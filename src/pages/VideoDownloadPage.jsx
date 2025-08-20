@@ -40,7 +40,7 @@ const VideoDownloadPage = () => {
 
       try {
         // Updated API endpoint
-        const apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp4?url=${encodeURIComponent(youtubeUrlForApi)}`;
+        const apiUrl = `https://api-dash.emmyhenztech.space/api/all-in-one?url=${encodeURIComponent(youtubeUrlForApi)}`;
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
@@ -57,29 +57,29 @@ const VideoDownloadPage = () => {
         const data = await response.json();
 
         // Updated response handling for the new API structure
-        if (data.status && data.result && data.result.url && data.result.title) {
+        if (data.success && data.download_links && data.download_links.length > 0 && data.download_links[0].url) {
           // Map the new API response to the expected format
           const formattedVideoInfo = {
-            title: data.result.title,
-            thumbnail: data.result.thumbnail,
-            download_url: data.result.url,
-            quality: 'MP4',
+            title: data.input_url.includes('youtube') ? `YouTube Video: ${actualVideoId}` : 'Downloadable Video',
+            thumbnail: `https://img.youtube.com/vi/${actualVideoId}/hqdefault.jpg`,
+            download_url: data.download_links[0].url,
+            quality: data.download_links[0].quality || 'HD',
             type: 'Video File'
           };
           
           setVideoInfo(formattedVideoInfo);
           toast({
             title: "Video Details Loaded",
-            description: `Ready to download: ${data.result.title}`,
+            description: "Ready to download your video",
             className: "bg-green-600 text-white"
           });
         } else {
-          console.error("API Status False or No Result/URL/Title (Video):", data, "URL Sent:", youtubeUrlForApi);
+          console.error("API Success False or No Download Links (Video):", data, "URL Sent:", youtubeUrlForApi);
           let errorMessage = "Failed to get video information. ";
           if(data.message) {
             errorMessage += data.message;
-          } else if (!data.result || !data.result.url) {
-            errorMessage += "The download link is missing or the API could not process this video.";
+          } else if (!data.download_links || data.download_links.length === 0) {
+            errorMessage += "No download links found or the API could not process this video.";
           } else {
             errorMessage += "The API response was not as expected.";
           }
