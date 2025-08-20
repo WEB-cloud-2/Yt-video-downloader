@@ -1,0 +1,54 @@
+<!-- Video Downloader Logo (SVG) -->
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Video Downloader Logo</title>
+  <desc id="desc">Rounded badge with a play triangle inside a stylized download arrow.</desc>
+
+  <!-- ====== THEME COLORS (edit these) ====== -->
+  <defs>
+    <!-- Badge gradient -->
+    <linearGradient id="badgeGrad" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6C3BFF"/>
+      <stop offset="1" stop-color="#FF3B5C"/>
+    </linearGradient>
+
+    <!-- Inner glow -->
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(128 110) rotate(90) scale(90)">
+      <stop stop-color="white" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Drop shadow filter for the mark -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- ====== BADGE ====== -->
+  <rect x="16" y="16" width="224" height="224" rx="44" fill="url(#badgeGrad)"/>
+  <rect x="16" y="16" width="224" height="224" rx="44" fill="url(#glow)"/>
+
+  <!-- ====== SYMBOL (play + download) ====== -->
+  <g filter="url(#shadow)">
+    <!-- Download arrow container (stylized) -->
+    <path d="M128 60c26 0 48 21 48 48v12h14c6 0 10 5 9 11-6 34-36 59-71 59s-65-25-71-59c-1-6 3-11 9-11h14v-12c0-27 22-48 48-48Z"
+          fill="#FFFFFF" opacity="0.95"/>
+
+    <!-- Arrow shaft -->
+    <rect x="120" y="84" width="16" height="52" rx="8" fill="#0E0E10"/>
+
+    <!-- Arrow head -->
+    <path d="M128 154l-22-22a8 8 0 0 1 11.3-11.3l10.7 10.7 10.7-10.7A8 8 0 1 1 149.7 132L128 154Z" fill="#0E0E10"/>
+
+    <!-- Play triangle (cut-out style) -->
+    <path d="M108 116c0-3.3 3.7-5.3 6.5-3.5l36 21c2.8 1.6 2.8 5.5 0 7.1l-36 21c-2.8 1.6-6.5-0.3-6.5-3.6v-42Z" fill="#FF3B5C"/>
+  </g>
+
+  <!-- ====== OPTIONAL WORDMARK ====== -->
+  <!-- Toggle display to 'none' if you want icon-only -->
+  <g style="display:block">
+    <text x="128" y="242" font-family="system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif"
+          font-size="22" text-anchor="middle" fill="#0E0E10" fill-opacity="0.9" letter-spacing="0.5">
+      
+    </text>
+  </g>
+</svg>
