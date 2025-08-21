@@ -39,8 +39,7 @@ const VideoDownloadPage = () => {
       }
 
       try {
-        // Updated API endpoint with GiftedTech API
-        const apiUrl = `https://api.giftedtech.co.ke/api/download/ytmp4?apikey=gifted&url=${encodeURIComponent(youtubeUrlForApi)}`;
+        const apiUrl = `https://api-aswin-sparky.koyeb.app/api/downloader/ytv?url=${encodeURIComponent(youtubeUrlForApi)}`;
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
@@ -56,29 +55,27 @@ const VideoDownloadPage = () => {
 
         const data = await response.json();
 
-        // Updated response handling for the GiftedTech API structure
-        if (data.success && data.result && data.result.download_url) {
-          // Map the API response to the expected format
-          const formattedVideoInfo = {
-            title: data.result.title,
-            thumbnail: data.result.thumbnail,
-            download_url: data.result.download_url,
-            quality: data.result.quality || 'HD',
+        if (data.status && data.data && data.data.url && data.data.title) {
+          // Transform the API response to match our expected format
+          const transformedData = {
+            title: data.data.title,
+            download_url: data.data.url,
+            quality: 'HD', // Default quality as the new API doesn't provide this
             type: 'Video File'
           };
           
-          setVideoInfo(formattedVideoInfo);
+          setVideoInfo(transformedData);
           toast({
             title: "Video Details Loaded",
-            description: `Ready to download: ${data.result.title}`,
+            description: `Ready to download: ${data.data.title}`,
             className: "bg-green-600 text-white"
           });
         } else {
-          console.error("API Success False or No Result/Download URL (Video):", data, "URL Sent:", youtubeUrlForApi);
+          console.error("API Status False or No Data/URL/Title (Video):", data, "URL Sent:", youtubeUrlForApi);
           let errorMessage = "Failed to get video information. ";
           if(data.message) {
             errorMessage += data.message;
-          } else if (!data.result || !data.result.download_url) {
+          } else if (!data.data || !data.data.url) {
             errorMessage += "The download link is missing or the API could not process this video.";
           } else {
             errorMessage += "The API response was not as expected.";
